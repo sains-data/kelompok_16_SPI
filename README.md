@@ -31,6 +31,7 @@ Satuan Pengawas Internal (SPI) bertanggung jawab untuk melakukan audit dan penga
 ## Documentation
 * [Business Requirements](docs/01-requirements/)
 * [Design Documents](docs/02-design/)
+* [Laporan Misi 1](https://drive.google.com/file/d/1qDsmpNN1u3PWiXys3PMfYnOXgJ8GSe0E/view?usp=sharing)
 
 ## Timeline
 * Misi 1: 17 November 2025
