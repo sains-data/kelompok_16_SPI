@@ -21,11 +21,11 @@ Satuan Pengawas Internal (SPI) bertanggung jawab untuk melakukan audit dan penga
 ## Architecture
 * **Approach:** Kimball
 * **Platform:** SQL Server on Azure VM
-* **ETL:** SSIS
+* **ETL:** T-SQL
 
 ## Key Features
-* **Fact tables:** Fact Audit, Fact Tindak Lanjut
-* **Dimension tables:** Dim Waktu, Dim Auditor, Dim Unit Kerja, Dim Jenis Temuan, Dim Status Tindak Lanjut
+* **Fact tables:** Fact Temuan Rekomendasi
+* **Dimension tables:** Dim Waktu, Dim Auditor, Dim Unit Kerja, Dim Temuan, Dim Sistem Sumber, Dim Rekomendasi, Dim Siklus Audit,
 * **KPIs:** Jumlah Temuan Audit, Persentase Tindak Lanjut Selesai, Rata-rata Waktu Penyelesaian Tindak Lanjut.
 
 ## Documentation
