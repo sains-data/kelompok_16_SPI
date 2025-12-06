@@ -7,8 +7,8 @@ SD25-31007 - Pergudangan Data Tugas Besar Kelompok 16
 
 | NIM | Name | Role |
 | :--- | :--- | :--- |
-| 123450012 | Anggi Puspita Ningrum | Ketua Tim | 
-| 123450019 | Anadia Carana | Anggota | 
+| 123450012 | Anggi Puspita Ningrum | Anggota | 
+| 123450019 | Anadia Carana | Ketua Team | 
 | 123450076 | Iqfina Haula Halika | Anggota |
 | 122450124 | Muhammad Dzikra | Anggota | 
 
