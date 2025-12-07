@@ -1,5 +1,5 @@
 -- 1. Dimensi Waktu (SCD Tipe 0 / Static) - Disesuaikan dengan Dim_Date standar
-CREATE TABLE dbo.Dim_Waktu (
+CREATE TABLE dbo.Dimensi_Waktu (
     Waktu_SK INT PRIMARY KEY NOT NULL, -- PK (YYYYMMDD)
     Tanggal_Penuh DATE NOT NULL,
     Bulan VARCHAR (10) NOT NULL,
@@ -18,7 +18,7 @@ GO
 
 
 -- 2. Dimensi Sistem Sumber (SCD Tipe 0 / Static)
-CREATE TABLE dbo.Dim_Sistem_Sumber (
+CREATE TABLE dbo.Dimensi_Sistem_Sumber (
     ID_Sistem_Sumber INT PRIMARY KEY NOT NULL, -- PK
     Kode_Sumber VARCHAR(50) NOT NULL,
     Nama_Sistem VARCHAR(100),
@@ -39,7 +39,7 @@ GO
 
 -- 3. Dimensi Unit Kerja (SCD Tipe 2) - Objek Audit
 -- Pemicu SCD: Jenis_Unit, Kepala_Unit
-CREATE TABLE dbo.Dim_Unit_Kerja (
+CREATE TABLE dbo.Dimensi_Unit_Kerja (
     Unit_Kerja_SK INT IDENTITY(1,1) PRIMARY KEY NOT NULL, -- Surrogate Key
     Kode_Unit VARCHAR(50) UNIQUE NOT NULL, -- Natural Key (Source Key)
     Nama_Unit VARCHAR(100) NOT NULL,
@@ -59,13 +59,13 @@ CREATE TABLE dbo.Dim_Unit_Kerja (
 GO
 
 -- Indexing untuk ETL Lookup dan SCD Tipe 2
-CREATE NONCLUSTERED INDEX IX_DimUnitKerja_NK ON dbo.Dim_Unit_Kerja (Kode_Unit);
-CREATE NONCLUSTERED INDEX IX_DimUnitKerja_Current ON dbo.Dim_Unit_Kerja (IsCurrent) WHERE IsCurrent = 1;
+CREATE NONCLUSTERED INDEX IX_DimUnitKerja_NK ON dbo.Dimensi_Unit_Kerja (Kode_Unit);
+CREATE NONCLUSTERED INDEX IX_DimUnitKerja_Current ON dbo.Dimensi_Unit_Kerja (IsCurrent) WHERE IsCurrent = 1;
 GO
 
   
 -- 4. Dimensi Siklus Audit (SCD Tipe 1)
-CREATE TABLE dbo.Dim_Siklus_Audit (
+CREATE TABLE dbo.Dimensi_Siklus_Audit (
     Siklus_Audit_SK INT IDENTITY(1,1) PRIMARY KEY NOT NULL, -- Surrogate Key
     ID_Sistem_Sumber VARCHAR(50) UNIQUE NOT NULL, -- Source Key
     Jenis_Audit VARCHAR(50),
@@ -79,13 +79,13 @@ CREATE TABLE dbo.Dim_Siklus_Audit (
 GO
 
 -- Indexing untuk ETL Lookup (Natural Key)
-CREATE UNIQUE NONCLUSTERED INDEX IX_DimSiklusAudit_NK ON dbo.Dim_Siklus_Audit (ID_Sistem_Sumber);
+CREATE UNIQUE NONCLUSTERED INDEX IX_DimSiklusAudit_NK ON dbo.Dimensi_Siklus_Audit (ID_Sistem_Sumber);
 GO
 
   
 -- 5. Dimensi Auditor (SCD Tipe 2 - Disesuaikan dengan kebutuhan SPI)
 -- Pemicu SCD: Jabatan, Tim_Audit
-CREATE TABLE dbo.Dim_Auditor (
+CREATE TABLE dbo.Dimensi_Auditor (
     Auditor_SK INT IDENTITY(1,1) PRIMARY KEY NOT NULL, -- Surrogate Key
     ID_Sistem_Sumber VARCHAR(50) UNIQUE NOT NULL, -- Natural Key (NIP/ID Asli)
     Nama_Auditor VARCHAR(100) NOT NULL,
@@ -105,14 +105,14 @@ CREATE TABLE dbo.Dim_Auditor (
 GO
 
 -- Indexing untuk ETL Lookup dan SCD Tipe 2
-CREATE NONCLUSTERED INDEX IX_DimAuditor_NK ON dbo.Dim_Auditor (ID_Sistem_Sumber);
-CREATE NONCLUSTERED INDEX IX_DimAuditor_Current ON dbo.Dim_Auditor (IsCurrent) WHERE IsCurrent = 1;
+CREATE NONCLUSTERED INDEX IX_DimAuditor_NK ON dbo.Dimensi_Auditor (ID_Sistem_Sumber);
+CREATE NONCLUSTERED INDEX IX_DimAuditor_Current ON dbo.Dimensi_Auditor (IsCurrent) WHERE IsCurrent = 1;
 GO
 
   
 -- 6. Dimensi Temuan (SCD Tipe 2)
 -- Pemicu SCD: Tingkat_Materialitas
-CREATE TABLE dbo.Dim_Temuan (
+CREATE TABLE dbo.Dimensi_Temuan (
     Temuan_SK INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     ID_Sistem_Sumber VARCHAR(50) UNIQUE NOT NULL, -- Source Key
     Kategori_Risiko VARCHAR(50),
@@ -132,14 +132,14 @@ CREATE TABLE dbo.Dim_Temuan (
 GO
 
 -- Indexing untuk ETL Lookup dan SCD Tipe 2
-CREATE NONCLUSTERED INDEX IX_DimTemuan_NK ON dbo.Dim_Temuan (ID_Sistem_Sumber);
-CREATE NONCLUSTERED INDEX IX_DimTemuan_Current ON dbo.Dim_Temuan (IsCurrent) WHERE IsCurrent = 1;
+CREATE NONCLUSTERED INDEX IX_DimTemuan_NK ON dbo.Dimensi_Temuan (ID_Sistem_Sumber);
+CREATE NONCLUSTERED INDEX IX_DimTemuan_Current ON dbo.Dimensi_Temuan (IsCurrent) WHERE IsCurrent = 1;
 GO
 
   
 -- 7. Dimensi Rekomendasi (SCD Tipe 2)
 -- Pemicu SCD: Penanggung_Jawab
-CREATE TABLE dbo.Dim_Rekomendasi (
+CREATE TABLE dbo.Dimensi_Rekomendasi (
     Rekomendasi_SK INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
     ID_Sistem_Sumber VARCHAR(50) UNIQUE NOT NULL, -- Source Key
     Status_Tindak_Lanjut VARCHAR(50), -- Tipe 1
@@ -158,6 +158,6 @@ CREATE TABLE dbo.Dim_Rekomendasi (
 GO
 
 -- Indexing untuk ETL Lookup dan SCD Tipe 2
-CREATE NONCLUSTERED INDEX IX_DimRekomendasi_NK ON dbo.Dim_Rekomendasi (ID_Sistem_Sumber);
-CREATE NONCLUSTERED INDEX IX_DimRekomendasi_Current ON dbo.Dim_Rekomendasi (IsCurrent) WHERE IsCurrent = 1;
+CREATE NONCLUSTERED INDEX IX_DimRekomendasi_NK ON dbo.Dimensi_Rekomendasi (ID_Sistem_Sumber);
+CREATE NONCLUSTERED INDEX IX_DimRekomendasi_Current ON dbo.Dimensi_Rekomendasi (IsCurrent) WHERE IsCurrent = 1;
 GO
